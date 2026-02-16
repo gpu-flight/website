@@ -11,32 +11,29 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Production Grade',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Designed for always-on monitoring with minimal overhead using lock-free ring buffers and background collection.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Logical Scoping',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Group thousands of micro-kernels into meaningful application phases like "Inference" or "Physics" using GFL_SCOPE.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Rich Analysis',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Powerful Python API for terminal dashboards and interactive timeline visualizations of GPU performance.
       </>
     ),
   },
