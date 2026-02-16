@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'GPUFlight',
-  tagline: 'The Flight Recorder for GPU Production Workloads',
+  tagline: 'GPUFlight is a lightweight, always-on GPU observability platform that records CUDA kernel behavior with minimal overhead, enabling post-mortem performance analysis and source-level correlation.',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future

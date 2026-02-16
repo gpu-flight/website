@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-**GPUFlight (gpufl)** is a lightweight, high-performance C++ observability library designed for always-on monitoring of GPU applications.
+**GPUFlight (gpufl)** is a lightweight, always-on GPU observability platform that records CUDA kernel behavior with minimal overhead, enabling post-mortem performance analysis and source-level correlation.
 
 Unlike traditional profilers (like NVIDIA Nsight) that often require stopping or significantly slowing down the application, GPUFlight is designed to run in **production environments** with minimal overhead. It captures kernel telemetry and logical scopes into structured logs, providing deep insights into GPU workloads as they happen.
 

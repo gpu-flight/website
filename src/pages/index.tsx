@@ -34,7 +34,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="GPUFlight is a lightweight, always-on GPU observability platform that records CUDA kernel behavior with minimal overhead, enabling post-mortem performance analysis and source-level correlation.">,search:
       <HomepageHeader />
       <main>
         <HomepageFeatures />
