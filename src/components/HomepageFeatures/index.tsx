@@ -11,11 +11,11 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Production Grade',
+    title: 'Production-Ready GPU Monitoring',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Designed for always-on monitoring with minimal overhead using lock-free ring buffers and background collection.
+        Designed for always-on GPU monitoring with minimal overhead using lock-free ring buffers and background collection.
       </>
     ),
   },
@@ -29,11 +29,11 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 'Rich Analysis',
+    title: 'Advanced CUDA Profiling',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Powerful Python API for terminal dashboards and interactive timeline visualizations of GPU performance.
+        Powerful Python API for terminal dashboards and interactive timeline visualizations of CUDA kernel performance.
       </>
     ),
   },

@@ -33,8 +33,8 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="GPUFlight is a lightweight, always-on GPU observability platform that records CUDA kernel behavior with minimal overhead, enabling post-mortem performance analysis and source-level correlation.">,search:
+      title={`GPU CUDA Profiler & Monitoring System | ${siteConfig.title}`}
+      description="GPUFlight is a lightweight, always-on GPU CUDA profiler and monitoring system for real-time performance analysis with minimal overhead.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
