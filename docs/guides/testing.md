@@ -4,35 +4,44 @@ The GPUFlight project includes comprehensive test suites for both the C++ and Py
 
 ## C++ Tests (GoogleTest)
 
-The C++ tests are hardware-aware and will automatically skip NVIDIA-specific tests if a compatible GPU or driver is not detected.
+The C++ tests are hardware-aware and will automatically skip vendor-specific tests if a compatible GPU or driver is not detected.
 
-1.  **Build the tests**:
-    ```bash
-    cmake --build build --target gpufl_tests
-    ```
+### NVIDIA Build
 
-2.  **Run via CTest**:
-    ```bash
-    ctest --test-dir build --output-on-failure
-    ```
+```bash
+cmake -B build -DBUILD_TESTING=ON
+cmake --build build --target gpufl_tests
+ctest --test-dir build --output-on-failure
+```
 
-3.  **Run directly**:
-    ```bash
-    ./build/tests/gpufl_tests
-    ```
+### AMD Build
+
+```bash
+cmake -B build-rocm -DGPUFL_ENABLE_AMD=ON -DGPUFL_ENABLE_NVIDIA=OFF -DBUILD_TESTING=ON
+cmake --build build-rocm --target gpufl_tests
+ctest --test-dir build-rocm --output-on-failure
+```
+
+### Run Directly
+
+```bash
+./build/tests/gpufl_tests          # NVIDIA
+./build-rocm/tests/gpufl_tests     # AMD
+```
 
 ## Python Tests (pytest)
 
-The Python tests use `pytest` and verify the analyzer and visualization logic, often using mocked data to avoid hardware dependencies during CI.
+The Python tests verify the analyzer, report, and visualization logic using mocked data to avoid hardware dependencies during CI.
 
-1.  **Install pytest**:
-    ```bash
-    pip install pytest
-    ```
+```bash
+pip install pytest
+export PYTHONPATH=$PYTHONPATH:$(pwd)/python
+pytest tests/python
+```
 
-2.  **Run tests**:
-    ```bash
-    # Ensure python directory is in PYTHONPATH
-    export PYTHONPATH=$PYTHONPATH:$(pwd)/python
-    pytest tests/python
-    ```
+## CI Pipeline
+
+The CI runs on multiple platforms:
+- **Linux**: NVIDIA (CUDA) and AMD (ROCm) builds
+- **Windows**: NVIDIA build with MSVC
+- **Python wheel**: Built and tested on all platforms

@@ -11,29 +11,29 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Production-Ready GPU Monitoring',
+    title: 'Multi-Vendor GPU Monitoring',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Designed for always-on GPU monitoring with minimal overhead using lock-free ring buffers and background collection.
+        Always-on monitoring for NVIDIA CUDA and AMD ROCm with minimal overhead. Lock-free ring buffers and background collection keep your hot path fast.
       </>
     ),
   },
   {
-    title: 'Logical Scoping',
+    title: 'Scoping & Reporting',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Group thousands of micro-kernels into meaningful application phases like "Inference" or "Physics" using GFL_SCOPE.
+        Group kernels into application phases with GFL_SCOPE. Generate performance reports with kernel hotspots, occupancy analysis, and system metrics.
       </>
     ),
   },
   {
-    title: 'Advanced CUDA Profiling',
+    title: 'Profiling & ISA Analysis',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Powerful Python API for terminal dashboards and interactive timeline visualizations of CUDA kernel performance.
+        PC sampling, SASS/ISA instruction metrics, and automatic GPU assembly disassembly. Python tools for analysis, dashboards, and timeline visualization.
       </>
     ),
   },

@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'GPUFlight - GPU CUDA Profiler & Monitoring System',
-  tagline: 'GPUFlight is a lightweight, always-on GPU CUDA profiler and monitoring system that records kernel behavior with minimal overhead.',
+  title: 'GPUFlight - GPU Profiler & Monitoring System',
+  tagline: 'Lightweight, always-on GPU profiler and monitoring system for NVIDIA CUDA and AMD ROCm. Records kernel behavior with minimal overhead.',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future

@@ -1,19 +1,19 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+release:
+  label: Release
+  permalink: /release
+  description: Release announcements
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+amd:
+  label: AMD
+  permalink: /amd
+  description: AMD ROCm related updates
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+nvidia:
+  label: NVIDIA
+  permalink: /nvidia
+  description: NVIDIA CUDA related updates
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+feature:
+  label: Feature
+  permalink: /feature
+  description: New feature announcements

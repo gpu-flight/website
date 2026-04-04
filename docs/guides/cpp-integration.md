@@ -1,46 +1,113 @@
 # C++ Integration Guide
 
-This guide covers how to use `gpufl` in your CUDA C++ application.
+This guide covers how to use GPUFlight in your CUDA or HIP C++ application.
 
 ## Basic Usage
 
-To start capturing GPU telemetry, you need to include the `gpufl` header and initialize the library.
-
 ```cpp
-#include <gpufl/gpufl.h>
+#include <gpufl/gpufl.hpp>
 
 int main() {
-    // Initialize GPUFlight
-    // This starts the background collector thread and CUPTI interception
-    gfl::initialize();
+    gpufl::InitOptions opts;
+    opts.app_name = "my_app";
+    opts.log_path = "my_app.log";          // log files: my_app.device.log, my_app.scope.log, my_app.system.log
+    opts.sampling_auto_start = true;       // start system metric sampling immediately
+    opts.system_sample_rate_ms = 50;       // sample GPU/CPU metrics every 50ms
+    opts.enable_kernel_details = true;     // capture grid/block, occupancy, registers
+    // opts.backend = gpufl::BackendKind::Auto;  // auto-detect NVIDIA or AMD (default)
 
-    // ... your CUDA code ...
+    gpufl::init(opts);
 
-    // Shutdown GPUFlight to ensure all logs are flushed
-    gfl::shutdown();
+    // ... your GPU code ...
+
+    gpufl::shutdown();
+
+    // Print a performance summary report to console
+    gpufl::generateReport();
+
+    // Or save to a file
+    // gpufl::generateReport("report.txt");
+
     return 0;
 }
 ```
 
+## InitOptions
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `app_name` | `"gpufl"` | Application name (used in log file names) |
+| `log_path` | `""` | Log file path. If empty, defaults to `<app_name>.log` |
+| `backend` | `Auto` | Backend selection: `Auto`, `Nvidia`, `Amd`, `None` |
+| `sampling_auto_start` | `false` | Start system metric sampling on init |
+| `system_sample_rate_ms` | `0` | System metric sampling interval (0 = disabled) |
+| `enable_kernel_details` | `false` | Capture occupancy, grid/block, registers |
+| `enable_stack_trace` | `true` | Capture CPU stack traces (NVIDIA only) |
+| `profiling_engine` | `PcSampling` | Profiling mode (NVIDIA only) |
+
 ## Logical Scoping
 
-One of the most powerful features of `gpufl` is the ability to group multiple kernel launches into "Logical Scopes". This helps you understand high-level application phases rather than just individual kernels.
-
-Use the `GFL_SCOPE` macro (or `gfl::Scope` object) to define these regions.
+Group kernel launches into named phases using `GFL_SCOPE`:
 
 ```cpp
-void run_inference() {
-    GFL_SCOPE("InferencePhase");
+void train_step() {
+    GFL_SCOPE("forward_pass") {
+        conv_kernel<<<grid, block>>>(...);
+        relu_kernel<<<grid, block>>>(...);
+    }
 
-    // All kernels launched within this block will be 
-    // associated with "InferencePhase" in the logs.
-    my_kernel_1<<<...>>>(...);
-    my_kernel_2<<<...>>>(...);
+    GFL_SCOPE("backward_pass") {
+        grad_kernel<<<grid, block>>>(...);
+        update_kernel<<<grid, block>>>(...);
+    }
 }
 ```
 
+Scopes can be nested. All kernels launched within a scope are attributed to that scope in the report and logs.
+
+## System Monitoring
+
+Start and stop system metric collection independently:
+
+```cpp
+gpufl::systemStart("training_phase");
+// ... GPU work ...
+gpufl::systemStop("training_phase");
+```
+
+When `sampling_auto_start` is enabled, system monitoring runs for the entire session.
+
+## Profiling Engines (NVIDIA)
+
+Select a profiling engine via `InitOptions::profiling_engine`:
+
+| Engine | Description |
+|--------|-------------|
+| `ProfilingEngine::None` | Monitoring only, no profiling overhead |
+| `ProfilingEngine::PcSampling` | PC-level stall-reason sampling |
+| `ProfilingEngine::SassMetrics` | Per-instruction execution counts |
+| `ProfilingEngine::RangeProfiler` | Hardware performance counters |
+| `ProfilingEngine::PcSamplingWithSass` | PC sampling + SASS metrics combined |
+
+## Report Generation
+
+After `shutdown()`, generate a summary report:
+
+```cpp
+gpufl::shutdown();
+
+// Print to console (stdout)
+gpufl::generateReport();
+
+// Save to file
+gpufl::generateReport("report.txt");
+```
+
+The report includes kernel hotspots, memory transfers, system metrics, scope timing, and profile analysis.
+
 ## How it Works
 
-1.  **CUPTI Interception**: `gpufl` uses the NVIDIA CUPTI callbacks to intercept every `cudaLaunchKernel` call.
-2.  **Lock-Free Logging**: Metadata about the kernel (name, grid/block dims, etc.) is pushed into a lock-free ring buffer.
-3.  **Background Collection**: A separate thread pulls data from the ring buffer and writes it to NDJSON logs. This minimizes the impact on the application's critical path.
+1. **Kernel Interception**: CUPTI callbacks (NVIDIA) or rocprofiler-sdk buffer tracing (AMD) intercept kernel launches.
+2. **Lock-Free Logging**: Kernel metadata is pushed into a lock-free ring buffer.
+3. **Background Collection**: A separate thread drains the ring buffer and writes batched NDJSON logs.
+4. **ISA Capture**: GPU code objects are captured and disassembled (SASS for NVIDIA, RDNA ISA for AMD).
