@@ -1,0 +1,166 @@
+---
+const features = [
+  'Kernel profiling with CUPTI',
+  'SASS disassembly & PC Sampling',
+  'Memory coalescing analysis',
+  'Real-time GPU monitoring',
+  'AI-powered insights',
+  'Fleet overview dashboard',
+]
+---
+
+<section class="section section-alt" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <h2>Free during Open Beta</h2>
+      <p>All profiling features included. No credit card required.</p>
+    </div>
+
+    <div class="beta-card">
+      <div class="beta-badge">Open Beta</div>
+
+      <div class="price-block">
+        <span class="price">Free</span>
+        <span class="price-sub">for all features during Open Beta</span>
+      </div>
+
+      <div class="limits-row">
+        <div class="limit"><span class="limit-val">3</span><span class="limit-label">GPUs</span></div>
+        <div class="limit-divider"></div>
+        <div class="limit"><span class="limit-val">7 days</span><span class="limit-label">Retention</span></div>
+        <div class="limit-divider"></div>
+        <div class="limit"><span class="limit-val">All</span><span class="limit-label">Features</span></div>
+      </div>
+
+      <div class="feature-grid">
+        {features.map(f => (
+          <div class="feature-item">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3.5 8.5L6.5 11.5L12.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{f}</span>
+          </div>
+        ))}
+      </div>
+
+      <a href="https://app.gpuflight.com/register" class="btn btn-primary btn-large" style="margin-top: 8px;">
+        Get Started Free
+      </a>
+
+      <div class="beta-note">
+        Need more GPUs or longer retention? <a href="mailto:myounghoshin84@gmail.com">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .beta-card {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--gf-bg-card);
+    border: 1px solid var(--gf-border);
+    border-radius: var(--gf-radius-xl);
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .beta-badge {
+    position: absolute;
+    top: -12px;
+    background: var(--gf-accent);
+    color: white;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 4px 16px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .price-block {
+    margin: 16px 0 28px;
+  }
+  .price {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--gf-text);
+  }
+  .price-sub {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--gf-text-muted);
+    margin-top: 4px;
+  }
+  .limits-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 24px;
+    background: var(--gf-bg-elevated);
+    border-radius: var(--gf-radius);
+    border: 1px solid var(--gf-border);
+    margin-bottom: 28px;
+    width: 100%;
+    justify-content: center;
+  }
+  .limit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .limit-val {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gf-text);
+  }
+  .limit-label {
+    font-size: 0.6875rem;
+    color: var(--gf-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .limit-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--gf-border-strong);
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    margin-bottom: 28px;
+    width: 100%;
+    text-align: left;
+  }
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8125rem;
+    color: var(--gf-text-secondary);
+  }
+  .feature-item svg {
+    color: var(--gf-accent);
+    flex-shrink: 0;
+  }
+  .beta-note {
+    margin-top: 16px;
+    font-size: 0.75rem;
+    color: var(--gf-text-muted);
+  }
+  .beta-note a {
+    color: var(--gf-accent);
+    font-weight: 500;
+  }
+
+  @media (max-width: 480px) {
+    .beta-card { padding: 28px 20px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .limits-row { gap: 16px; padding: 12px 16px; }
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+const navLinks = [
+  { label: 'Features', href: '/features' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Docs', href: 'https://docs.gpuflight.com' },
+]
+---
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">GF</div>
+      <span class="logo-text">GPUFlight</span>
+    </a>
+
+    <nav class="nav">
+      {navLinks.map(link => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a href="https://app.gpuflight.com/login" class="nav-link">Login</a>
+      <a href="https://app.gpuflight.com/register" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.875rem;">Start Free</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 11, 13, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--gf-border);
+  }
+  .header-inner {
+    max-width: var(--gf-max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 60px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--gf-text);
+  }
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: var(--gf-accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .logo-text {
+    font-weight: 700;
+    font-size: 1.0625rem;
+    letter-spacing: -0.02em;
+  }
+  .nav {
+    display: flex;
+    gap: 32px;
+  }
+  .nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gf-text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-link:hover {
+    color: var(--gf-text);
+  }
+  .header-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .nav { display: none; }
+    .header-actions .nav-link { display: none; }
+  }
+</style>

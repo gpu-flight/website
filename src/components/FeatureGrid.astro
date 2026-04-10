@@ -1,0 +1,95 @@
+---
+const features = [
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    title: 'Kernel Profiling',
+    desc: 'Automatic GPU kernel instrumentation for NVIDIA (CUPTI) and AMD (ROCm). Capture execution time, occupancy, register usage, and limiting resources for every kernel launch.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M7 8l3 3-3 3"/><line x1="13" y1="14" x2="17" y2="14"/></svg>`,
+    title: 'SASS Disassembly',
+    desc: 'GPU instruction-level analysis with PC Sampling and SASS metrics. See exactly where your kernels spend cycles — down to individual assembly instructions.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+    title: 'Real-time Monitoring',
+    desc: 'Always-on GPU utilization, temperature, power, memory, and fan speed tracking via NVML. Sub-second resolution, zero-overhead collection.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+    title: 'Logical Scoping',
+    desc: 'Group kernels by training epoch, inference batch, or any logical boundary with GFL_SCOPE. See exactly which code path launched each kernel.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/><path d="M6 10v4M10 10v4M14 10v4M18 10v4"/></svg>`,
+    title: 'Fleet Overview',
+    desc: 'Monitor all GPUs across your cluster in one dashboard. Per-host, per-device views with stale session detection and thermal health gauges.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><line x1="9" y1="21" x2="15" y2="21"/></svg>`,
+    title: 'AI Insights',
+    desc: 'Automatic detection of low occupancy, memory bottlenecks, and suboptimal kernel configurations. Actionable recommendations, not just data.',
+  },
+]
+---
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Everything you need to understand your GPUs</h2>
+      <p>From kernel-level profiling to fleet-wide monitoring, in one platform.</p>
+    </div>
+
+    <div class="grid">
+      {features.map(f => (
+        <div class="card">
+          <div class="card-icon" set:html={f.icon} />
+          <h3>{f.title}</h3>
+          <p>{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .card {
+    background: var(--gf-bg-card);
+    border: 1px solid var(--gf-border);
+    border-radius: var(--gf-radius-lg);
+    padding: 28px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    border-color: var(--gf-border-strong);
+    box-shadow: 0 0 32px rgba(29, 158, 117, 0.05);
+  }
+  .card-icon {
+    color: var(--gf-accent);
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--gf-text);
+    letter-spacing: -0.01em;
+  }
+  .card p {
+    font-size: 0.875rem;
+    color: var(--gf-text-secondary);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 960px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>

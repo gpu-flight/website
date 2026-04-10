@@ -1,0 +1,89 @@
+---
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">Open Beta</div>
+    <h1>Your GPU Stack,<br/><span class="accent">Fully Profiled</span></h1>
+    <p class="hero-sub">
+      Low-overhead GPU kernel profiling for NVIDIA CUDA and AMD ROCm.
+      SASS disassembly, memory coalescing analysis, and stall reason breakdown —
+      all during normal execution. No debugger. No replay.
+    </p>
+    <div class="hero-actions">
+      <a href="https://app.gpuflight.com/register" class="btn btn-primary btn-large">Get Started Free</a>
+      <a href="https://docs.gpuflight.com/docs/intro" class="btn btn-secondary btn-large">Documentation</a>
+    </div>
+    <div class="hero-note">No credit card required &middot; 3 GPUs free forever</div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 120px 24px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, var(--gf-accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { position: relative; z-index: 1; }
+  h1 {
+    font-size: 3.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    color: var(--gf-text);
+    margin-bottom: 24px;
+  }
+  .accent {
+    color: var(--gf-accent);
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gf-accent);
+    background: var(--gf-accent-glow);
+    border: 1px solid var(--gf-positive-border);
+    border-radius: 20px;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .hero-sub {
+    font-size: 1.1875rem;
+    color: var(--gf-text-secondary);
+    max-width: 580px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-note {
+    font-size: 0.8125rem;
+    color: var(--gf-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 80px 16px 64px; }
+    h1 { font-size: 2.25rem; }
+    .hero-sub { font-size: 1rem; }
+  }
+</style>
