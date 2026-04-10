@@ -1,0 +1,314 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import CTABanner from '../components/CTABanner.astro'
+
+const plans = [
+  {
+    name: 'Free',
+    price: '$0',
+    period: 'forever',
+    desc: 'For individual developers and small projects.',
+    highlight: false,
+    cta: 'Start Free',
+    href: 'https://app.gpuflight.com/register',
+  },
+  {
+    name: 'Pro',
+    price: '$29.99',
+    period: '/month',
+    desc: 'For teams and production ML workloads.',
+    highlight: true,
+    cta: 'Coming Soon',
+    href: '#',
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    period: '',
+    desc: 'For large GPU clusters and organizations.',
+    highlight: false,
+    cta: 'Contact Us',
+    href: 'mailto:myounghoshin84@gmail.com@gmail.com',
+  },
+]
+
+const features = [
+  { name: 'GPU Monitoring', free: true, pro: true, enterprise: true },
+  { name: 'Kernel Profiling (CUPTI)', free: true, pro: true, enterprise: true },
+  { name: 'SASS Disassembly', free: true, pro: true, enterprise: true },
+  { name: 'PC Sampling', free: true, pro: true, enterprise: true },
+  { name: 'AI Insights', free: true, pro: true, enterprise: true },
+  { name: 'Logical Scoping (GFL_SCOPE)', free: true, pro: true, enterprise: true },
+  { name: 'GPU Limit', free: '3', pro: '10', enterprise: 'Unlimited' },
+  { name: 'Data Retention', free: '7 days', pro: '30 days', enterprise: 'Custom' },
+  { name: 'Team Management', free: false, pro: true, enterprise: true },
+  { name: 'API Access', free: true, pro: true, enterprise: true },
+  { name: 'Priority Support', free: false, pro: true, enterprise: true },
+  { name: 'On-premise Option', free: false, pro: false, enterprise: true },
+  { name: 'SLA Guarantee', free: false, pro: false, enterprise: true },
+]
+
+const faqs = [
+  {
+    q: 'What counts as a GPU?',
+    a: 'Each unique GPU device that sends data to GPUFlight counts toward your limit. A server with 4 GPUs counts as 4. If you have multiple servers, GPUs are counted across all of them.',
+  },
+  {
+    q: 'What happens when my data reaches the retention limit?',
+    a: 'Data older than your retention period is automatically deleted. For example, on the Free plan, data older than 7 days is removed. Your most recent data is always available.',
+  },
+  {
+    q: 'Which GPUs are supported?',
+    a: 'GPUFlight supports both NVIDIA GPUs (Volta and newer via CUPTI) and AMD ROCm GPUs (via ROCTracer). NVIDIA gets SASS disassembly; AMD gets ISA disassembly via llvm-objdump. Both get kernel profiling, monitoring, and insights.',
+  },
+  {
+    q: 'Is GPUFlight production-safe?',
+    a: 'Yes. The monitoring daemon uses NVML which has zero overhead. The profiling SDK uses CUPTI callbacks which add minimal overhead (typically <2%). You can enable profiling selectively for specific scopes.',
+  },
+  {
+    q: 'When will the Pro plan be available?',
+    a: 'The Pro plan is launching in summer 2026. Until then, all features are available for free during the Open Beta. Sign up now and you will be the first to know.',
+  },
+]
+---
+
+<BaseLayout title="Pricing — GPUFlight" description="Simple, transparent pricing for GPU monitoring and profiling. Start free, scale when ready.">
+  <Header />
+
+  <main>
+    <!-- Hero -->
+    <section class="pricing-hero">
+      <div class="container">
+        <h1>Simple, transparent pricing</h1>
+        <p>All profiling features included in every plan. Only limits on scale differ.</p>
+      </div>
+    </section>
+
+    <!-- Plan cards -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="plan-grid">
+          {plans.map(plan => (
+            <div class={`plan-card ${plan.highlight ? 'plan-card--highlight' : ''}`}>
+              {plan.highlight && <div class="plan-badge">Most Popular</div>}
+              <div class="plan-name">{plan.name}</div>
+              <div class="plan-price">
+                <span class="plan-amount">{plan.price}</span>
+                {plan.period && <span class="plan-period">{plan.period}</span>}
+              </div>
+              <p class="plan-desc">{plan.desc}</p>
+              <a
+                href={plan.href}
+                class={`btn ${plan.highlight ? 'btn-primary' : 'btn-secondary'}`}
+                style="width: 100%; justify-content: center;"
+              >
+                {plan.cta}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature comparison -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Feature comparison</h2>
+        </div>
+
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Free</th>
+                <th class="col-highlight">Pro</th>
+                <th>Enterprise</th>
+              </tr>
+            </thead>
+            <tbody>
+              {features.map(f => (
+                <tr>
+                  <td class="feature-name">{f.name}</td>
+                  <td>{typeof f.free === 'boolean' ? (f.free ? '\u2713' : '\u2014') : f.free}</td>
+                  <td class="col-highlight">{typeof f.pro === 'boolean' ? (f.pro ? '\u2713' : '\u2014') : f.pro}</td>
+                  <td>{typeof f.enterprise === 'boolean' ? (f.enterprise ? '\u2713' : '\u2014') : f.enterprise}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="container" style="max-width: 720px;">
+        <div class="section-header">
+          <h2>Frequently asked questions</h2>
+        </div>
+
+        <div class="faq-list">
+          {faqs.map(faq => (
+            <details class="faq-item">
+              <summary>{faq.q}</summary>
+              <p>{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CTABanner />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .pricing-hero {
+    text-align: center;
+    padding: 80px 24px 48px;
+    background: linear-gradient(180deg, var(--gf-bg) 0%, var(--gf-bg-elevated) 100%);
+  }
+  .pricing-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .pricing-hero p {
+    font-size: 1.125rem;
+    color: var(--gf-text-secondary);
+  }
+
+  /* Plan cards */
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .plan-card {
+    background: var(--gf-card);
+    border: 1px solid var(--gf-border);
+    border-radius: var(--gf-radius-lg);
+    padding: 32px 28px;
+    position: relative;
+    text-align: center;
+  }
+  .plan-card--highlight {
+    border-color: var(--gf-accent);
+    box-shadow: 0 4px 24px rgba(29, 158, 117, 0.12);
+  }
+  .plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gf-accent);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 12px;
+  }
+  .plan-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .plan-price { margin-bottom: 8px; }
+  .plan-amount {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .plan-period {
+    font-size: 1rem;
+    color: var(--gf-text-secondary);
+  }
+  .plan-desc {
+    font-size: 0.875rem;
+    color: var(--gf-text-secondary);
+    margin-bottom: 24px;
+  }
+
+  /* Feature table */
+  .comparison-table-wrapper { overflow-x: auto; }
+  .comparison-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  .comparison-table th, .comparison-table td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--gf-border);
+  }
+  .comparison-table th {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gf-text-secondary);
+  }
+  .comparison-table .feature-name {
+    text-align: left;
+    font-weight: 500;
+    color: var(--gf-text);
+  }
+  .comparison-table .col-highlight {
+    background: rgba(29, 158, 117, 0.04);
+  }
+
+  /* FAQ */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .faq-item {
+    border: 1px solid var(--gf-border);
+    border-radius: var(--gf-radius);
+    padding: 0;
+    overflow: hidden;
+  }
+  .faq-item summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-item summary::after {
+    content: '+';
+    font-size: 1.25rem;
+    color: var(--gf-text-secondary);
+    transition: transform 0.2s;
+  }
+  .faq-item[open] summary::after {
+    content: '\2212';
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item p {
+    padding: 0 20px 16px;
+    font-size: 0.875rem;
+    color: var(--gf-text-secondary);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .plan-grid { grid-template-columns: 1fr; max-width: 400px; }
+    .pricing-hero h1 { font-size: 1.75rem; }
+  }
+</style>

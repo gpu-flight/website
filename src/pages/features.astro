@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from '../components/Header.astro'
+import FeatureGrid from '../components/FeatureGrid.astro'
+import CTABanner from '../components/CTABanner.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<BaseLayout title="Features — GPUFlight" description="Kernel profiling, SASS disassembly, real-time monitoring, fleet management, and AI insights for your GPU workloads.">
+  <Header />
+  <main>
+    <section class="features-hero">
+      <div class="container">
+        <h1>Built for GPU engineers</h1>
+        <p>Every feature you need to understand, optimize, and monitor your GPU workloads.</p>
+      </div>
+    </section>
+
+    <FeatureGrid />
+
+    <!-- Detailed feature sections -->
+    <section class="section">
+      <div class="container" style="max-width: 800px;">
+        <div class="feature-detail">
+          <h2>Kernel-level visibility</h2>
+          <p>
+            GPUFlight captures every GPU kernel launch via CUPTI (NVIDIA) and ROCTracer (AMD). For each kernel, you get:
+            execution time, grid and block dimensions, register usage, shared memory, occupancy breakdown,
+            and the limiting resource. No sampling bias, no missed launches.
+          </p>
+        </div>
+
+        <div class="feature-detail">
+          <h2>Instruction-level profiling</h2>
+          <p>
+            Go deeper with PC Sampling and SASS metrics. See which GPU assembly instructions cause stalls,
+            identify memory bottlenecks at the warp level, and understand divergence patterns.
+            All without recompiling your kernels.
+          </p>
+        </div>
+
+        <div class="feature-detail">
+          <h2>Always-on monitoring</h2>
+          <p>
+            The monitoring daemon collects GPU utilization, temperature, power draw, memory usage, and fan speed
+            via NVML at sub-second intervals. Zero overhead on your compute workload. See trends across hours or days.
+          </p>
+        </div>
+
+        <div class="feature-detail">
+          <h2>Fleet management</h2>
+          <p>
+            Monitor all GPUs across your cluster from one dashboard. Per-host summaries, per-device drill-downs,
+            stale session detection, and thermal health gauges. Know exactly which machines need attention.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <CTABanner />
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .features-hero {
+    text-align: center;
+    padding: 80px 24px 48px;
+    background: linear-gradient(180deg, var(--gf-bg) 0%, var(--gf-bg-elevated) 100%);
+  }
+  .features-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .features-hero p {
+    font-size: 1.125rem;
+    color: var(--gf-text-secondary);
+  }
+  .feature-detail {
+    margin-bottom: 48px;
+  }
+  .feature-detail h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .feature-detail p {
+    font-size: 1rem;
+    color: var(--gf-text-secondary);
+    line-height: 1.7;
+  }
+  @media (max-width: 768px) {
+    .features-hero h1 { font-size: 1.75rem; }
+  }
+</style>

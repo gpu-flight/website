@@ -1,0 +1,124 @@
+---
+const steps = [
+  {
+    num: '1',
+    title: 'Add the SDK',
+    desc: 'Add GPUFlight to your CMake project, then instrument your code with a single scope macro.',
+    code: `# CMakeLists.txt
+include(FetchContent)
+FetchContent_Declare(gpufl
+  GIT_REPOSITORY https://github.com/gpu-flight/gpufl-client.git
+  GIT_TAG        main)
+FetchContent_MakeAvailable(gpufl)
+target_link_libraries(my_app PRIVATE gpufl::gpufl)`,
+    lang: 'cmake',
+  },
+  {
+    num: '2',
+    title: 'Instrument Your Code',
+    desc: 'One include, one init call, and wrap your kernels with GFL_SCOPE.',
+    code: `#include <gpufl/gpufl.hpp>
+
+int main() {
+    gpufl::init({ .app_name = "my-training-job" });
+
+    GFL_SCOPE("Forward Pass") {
+        myKernel<<<grid, block>>>(...);
+    }
+
+    gpufl::shutdown();
+    gpufl::generateReport();  // prints to stdout
+}`,
+    lang: 'cpp',
+  },
+  {
+    num: '3',
+    title: 'Deploy & Monitor',
+    desc: 'Run the agent alongside your workload to stream data to the dashboard.',
+    code: `# Stream profiling data to GPUFlight Cloud
+docker run -d \\
+  -v /tmp/gpufl:/var/log/gpufl \\
+  -e GPUFL_HTTP_TOKEN=your-api-key \\
+  gpuflight/agent:latest
+
+# Or add always-on GPU monitoring
+docker compose -f monitor.yml up -d`,
+    lang: 'bash',
+  },
+]
+---
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Up and running in 5 minutes</h2>
+      <p>Three steps. No complex setup. No agents hogging your GPU.</p>
+    </div>
+
+    <div class="steps">
+      {steps.map(s => (
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">{s.num}</div>
+            <div>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </div>
+          </div>
+          <pre><code>{s.code}</code></pre>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .step {
+    background: var(--gf-bg-card);
+    border: 1px solid var(--gf-border);
+    border-radius: var(--gf-radius-lg);
+    padding: 24px;
+  }
+  .step:hover { border-color: var(--gf-border-strong); }
+  .step-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gf-accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+  .step-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--gf-text);
+  }
+  .step-header p {
+    font-size: 0.875rem;
+    color: var(--gf-text-secondary);
+    line-height: 1.5;
+  }
+  .step pre {
+    margin: 0;
+    font-size: 0.8125rem;
+  }
+</style>
